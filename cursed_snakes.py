@@ -9,12 +9,22 @@ board_height = 30
 score_width = 21
 
 
+def add_titleborder(window, title):
+    window.border()
+    title_string = f"╴{title}╶"
+    window.addstr(
+        0,
+        (window.getmaxyx()[1] - len(title_string)) // 2,
+        title_string,
+    )
+
+
 def draw_loop(board):
     curses.curs_set(0)
     board.resize(board_height, board_width)
-    board.border()
+    add_titleborder(board, "Game Board")
     score = curses.newwin(board_height, score_width, 0, board_width + 1)
-    score.border()
+    add_titleborder(score, "Score")
     board.refresh()
     score.refresh()
     key = None
