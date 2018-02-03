@@ -8,8 +8,12 @@ class Snake():
         self.body = deque([(y, x)])
         self.direction = direction
 
+    @property
+    def head(self):
+        return self.body[-1]
+
     def update_head(self):
-        y, x = self.body[-1]
+        y, x = self.head
         if self.direction == "u":
             y -= 1
         elif self.direction == "r":
@@ -29,5 +33,5 @@ class Snake():
         self.direction = direction
 
     def draw(self, window):
-        window.addch(*self.body[-1], "■")
+        window.addch(*self.head, "■")
         window.addch(*self.body[0], " ")
