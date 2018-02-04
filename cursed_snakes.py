@@ -31,6 +31,7 @@ def draw_loop(board):
     key = None
     while key != 'q':
         key = board.getkey()
+        snake.update_direction(key)
         snake.update_head()
         snake.draw(board)
         snake.update_tail()
