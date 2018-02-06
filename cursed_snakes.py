@@ -29,6 +29,7 @@ def draw_loop(stdscr):
         snake.update_head()
         snake.draw(board.window)
         snake.update_tail()
+        score.window.addstr(0, 0, f"Snake 1: {snake.length}")
         board.window.refresh()
         score.window.refresh()
 

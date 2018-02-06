@@ -30,6 +30,10 @@ class Snake():
     def head(self):
         return self.body[-1]
 
+    @property
+    def length(self):
+        return len(self.body)
+
     def update_head(self):
         y, x = self.head
         if self.direction == Snake.Direction.Up:
