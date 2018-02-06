@@ -2,6 +2,7 @@
 
 import curses
 
+from model.border_window import BorderWindow
 from model.snake import Snake
 
 __author__ = "Hendrik Werner"
@@ -11,32 +12,26 @@ board_height = 30
 score_width = 21
 
 
-def add_titleborder(window, title):
-    window.border()
-    title_string = f"╴{title}╶"
-    window.addstr(
-        0,
-        (window.getmaxyx()[1] - len(title_string)) // 2,
-        title_string,
-    )
-
-
-def draw_loop(board):
-    snake = Snake(1, 1)
+def draw_loop(stdscr):
     curses.curs_set(0)
-    board.resize(board_height, board_width)
-    add_titleborder(board, "Game Board")
-    score = curses.newwin(board_height, score_width, 0, board_width + 1)
-    add_titleborder(score, "Score")
+    board = BorderWindow(board_width, board_height, stdscr, "Game Board")
+    score = BorderWindow(
+        score_width,
+        board_height,
+        begin_x=board_width + 3,
+        title="Score",
+    )
+    snake = Snake(0, 0)
     key = None
     while key != 'q':
-        key = board.getkey()
+        key = board.window.getkey()
         snake.update_direction(key)
         snake.update_head()
-        snake.draw(board)
+        snake.draw(board.window)
         snake.update_tail()
-        board.refresh()
-        score.refresh()
+        board.window.refresh()
+        score.window.refresh()
+
 
 if __name__ == '__main__':
     curses.wrapper(draw_loop)
