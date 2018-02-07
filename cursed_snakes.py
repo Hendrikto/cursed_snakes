@@ -18,7 +18,7 @@ def draw_loop(stdscr):
     score = BorderWindow(
         score_width,
         board_height,
-        begin_x=board_width + 3,
+        begin_x=board.border.getmaxyx()[1] + 1,
         title="Score",
     )
     snake = Snake(0, 0)
